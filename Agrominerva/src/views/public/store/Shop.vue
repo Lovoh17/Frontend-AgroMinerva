@@ -35,7 +35,7 @@
  */
 
 import { ref } from 'vue';
-import ProductCard from '@/components/public/store/ProductCard.vue';
+//import ProductCard from '@/components/public/store/ProductCard.vue';
 
 // Datos de prueba (Reemplazar con la llamada a la API)
 const products = ref([
