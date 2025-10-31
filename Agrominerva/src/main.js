@@ -1,7 +1,5 @@
 import './assets/main.css'
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
-import './assets/variables.css'
+import 'primeicons/primeicons.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -9,44 +7,56 @@ import router from './router/index'
 import { createPinia } from 'pinia'
 import { Chart, registerables } from 'chart.js'
 
-import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/css'
-
 import PrimeVue from 'primevue/config'
-//import 'primevue/resources/themes/lara-light-green/theme.css' // Tema
-//import 'primevue/resources/primevue.min.css'                  // Core CSS
-import 'primeicons/primeicons.css'    
+import Aura from '@primevue/themes/aura'
+import BadgeDirective from 'primevue/badgedirective'
+import ToastService from 'primevue/toastservice'
+import Toast from 'primevue/toast'
 
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
-import VueGoodTablePlugin from 'vue-good-table-next'
-import 'vue-good-table-next/dist/vue-good-table-next.css'
-
-
-
-// Iconos
-import '@mdi/font/css/materialdesignicons.css'
-
-const vuetify = createVuetify({
-  components,
-  directives,
-})
+// Componentes PrimeVue 
+import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import Breadcrumb from 'primevue/breadcrumb'
+import Menu from 'primevue/menu'
+import Avatar from 'primevue/avatar'
+import Sidebar from 'primevue/sidebar'
+import Badge from 'primevue/badge'
+import Ripple from 'primevue/ripple'
 
 Chart.register(...registerables)
 
 const app = createApp(App)
 const pinia = createPinia()
 
-app.use(pinia) 
+app.use(pinia)
 app.use(router)
-app.use(vuetify)
-app.use(createVuestic())
-app.use(VueGoodTablePlugin) 
+
+// Configurar PrimeVue
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura,
+    options: {
+      darkModeSelector: false,
+    }
+  },
+  ripple: true
+})
+
+app.use(ToastService)
+
+// Registrar componentes de PrimeVue globalmente
+app.component('Button', Button)
+app.component('InputText', InputText)
+app.component('Breadcrumb', Breadcrumb)
+app.component('Menu', Menu)
+app.component('Avatar', Avatar)
+app.component('Sidebar', Sidebar)
+app.component('Badge', Badge)
+
+// Registrar directivas de PrimeVue
+app.directive('badge', BadgeDirective)
+app.directive('ripple', Ripple)
 
 app.mount('#app')
 
-
-console.log('🚀 Aplicación iniciada')
+console.log('🚀 Aplicación iniciada con PrimeVue')
