@@ -111,14 +111,6 @@ const publicRoutes = [
           title: 'Información de la Carrera'
         }
       },
-      {
-        path: 'agronomia/noticias',
-        name: 'AgronomyNews',
-        component: () => import('@/views/public/agronomy/News.vue'),
-        meta: {
-          title: 'Noticias de Agronomía'
-        }
-      },
 
       // ===== INFORMACIÓN EMPRESARIAL =====
       {

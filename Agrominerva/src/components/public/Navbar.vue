@@ -115,11 +115,6 @@
                                         <i class="pi pi-info-circle mr-3"></i>
                                         <span>Información de Carrera</span>
                                     </router-link>
-                                    <router-link to="/agronomia/noticias" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-newspaper mr-3"></i>
-                                        <span>Noticias Agrícolas</span>
-                                    </router-link>
                                 </div>
                             </transition>
                         </div>
@@ -238,7 +233,6 @@ const navItemsWithDropdowns = computed(() => {
                 { label: 'Programas Académicos', to: '/agronomia/programas', icon: 'pi pi-list' },
                 { label: 'Nuestros Profesores', to: '/agronomia/profesores', icon: 'pi pi-users' },
                 { label: 'Información de Carrera', to: '/agronomia/carrera', icon: 'pi pi-info-circle' },
-                { label: 'Noticias Agrícolas', to: '/agronomia/noticias', icon: 'pi pi-newspaper' }
             ]
         },
         {
