@@ -317,7 +317,7 @@ const professors = ref([
   },
   {
     id: 3,
-    name: 'Jaime Cristóbal Río Bolina',
+    name: 'Jaime Cristóbal Río Molina',
     title: 'Ingeniero Agrónomo',
     specialty: 'Economía Agrícola y Finanzas',
     role: 'Docente Tiempo Completo',
