@@ -10,6 +10,6 @@
  * @purpose: Página informativa sobre la carrera de agronomía.
  * @tasks:
  * - [ ] Maquetar el contenido estático (plan de estudios, perfil profesional, etc.).
- * - [ ] Añadir CTAs (Call to Action) relevantes (ej. "Ver Profesores", "Ver Programas").
+ * - [ ] Agregar links a Profesores y Programas.
  */
 </script>
