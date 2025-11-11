@@ -48,10 +48,27 @@
 
     </div>
   </div>
+    <EmailTemplate 
+    headerText="¡Bienvenido a AgroMinerva!"
+    headerSubtext="Tu plataforma de gestión agrícola inteligente"
+    greeting="Estimado Juan Pérez,"
+    mainContent="Nos complace darte la bienvenida a AgroMinerva, la plataforma líder en gestión agrícola inteligente. Estamos comprometidos en ayudarte a optimizar tus cultivos, aumentar tu productividad y tomar decisiones basadas en datos precisos. Con AgroMinerva, tendrás acceso a herramientas avanzadas de monitoreo, análisis predictivo y recomendaciones personalizadas para tu finca."
+    buttonText="Activar Mi Cuenta"
+    buttonLink="https://agrominerva.com/activate"
+    additionalInfo="Una vez que actives tu cuenta, podrás acceder a todas nuestras funcionalidades: monitoreo en tiempo real de tus cultivos, análisis detallado de suelos, predicciones meteorológicas precisas, alertas automáticas y reportes personalizados. Nuestro equipo de soporte está disponible 24/7 para ayudarte en cada paso del camino."
+    closing="¡Bienvenido a la revolución agrícola!&#10;&#10;Atentamente,&#10;El equipo de AgroMinerva"
+    companyAddress="Boulevard Los Próceres, San Salvador, El Salvador"
+    companyPhone="+503 2222-3333"
+    companyEmail="info@agrominerva.com"
+    :socialLinks="{ Facebook: 'https://facebook.com/agrominerva', Instagram: 'https://instagram.com/agrominerva', LinkedIn: 'https://linkedin.com/company/agrominerva' }"
+    footerMessage="Este correo fue enviado a juan.perez@email.com porque te registraste en AgroMinerva el 08 de noviembre de 2025."
+    unsubscribeLink="https://agrominerva.com/unsubscribe"
+  />
 </template>
 
 <script setup>
 import { computed } from 'vue';
+import EmailTemplate from '@/views/mail/EmailTemplate.vue';
 
 // --- Definición de Rutas (Hardcoded para el menú) ---
 // **IMPORTANTE**: En un entorno real, es mejor obtener esto del objeto router.

@@ -1,7 +1,27 @@
 <template>
-  <div class="p-6">
-    <h1>Detalle del Blog (BlogDetail.vue)</h1>
-    <p>Mostrando el artículo detallado</p>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header del artículo -->
+    <article-header :article="article" />
+    
+    <!-- Contenido principal -->
+    <div class="container mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Contenido del artículo -->
+        <div class="lg:col-span-3">
+          <article-content :content="article.content" />
+          <article-gallery :gallery="article.gallery" />
+          <article-downloads :downloads="article.downloads" />
+          <article-cta :call-to-action="article.callToAction" />
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <author-card :author="article.author" />
+          <article-metadata :metadata="article.metadata" />
+          <related-articles :article-ids="article.relatedArticles" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

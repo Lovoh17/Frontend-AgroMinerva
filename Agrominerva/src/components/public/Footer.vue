@@ -31,7 +31,8 @@
                     <ul class="space-y-2">
                         <li v-for="item in navItems" :key="item.label">
                             <router-link :to="item.to" class="footer-link group">
-                                <i :class="item.icon" class="text-accent-400 group-hover:text-accent-300 transition-colors"></i>
+                                <i :class="item.icon"
+                                    class="text-accent-400 group-hover:text-accent-300 transition-colors"></i>
                                 <span>{{ item.label }}</span>
                             </router-link>
                         </li>
@@ -46,7 +47,8 @@
                     <div class="space-y-4 mb-6">
                         <div class="flex items-start space-x-3 group">
                             <i class="pi pi-map-marker text-accent-400 mt-1 text-lg"></i>
-                            <span class="text-primary-100 text-sm leading-relaxed">Calle Principal #123, Ciudad Agrícola, País</span>
+                            <span class="text-primary-100 text-sm leading-relaxed">Calle Principal #123, Ciudad
+                                Agrícola, País</span>
                         </div>
                         <div class="flex items-center space-x-3 group">
                             <i class="pi pi-phone text-accent-400 text-lg"></i>
@@ -58,7 +60,8 @@
                         </div>
                         <div class="flex items-start space-x-3 group">
                             <i class="pi pi-clock text-accent-400 mt-1 text-lg"></i>
-                            <span class="text-primary-100 text-sm">Lun - Vie: 8:00 AM - 5:00 PM<br>Sáb: 8:00 AM - 12:00 PM</span>
+                            <span class="text-primary-100 text-sm">Lun - Vie: 8:00 AM - 5:00 PM<br>Sáb: 8:00 AM - 12:00
+                                PM</span>
                         </div>
                     </div>
 
@@ -88,7 +91,8 @@
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <!-- Copyright -->
                     <p class="text-primary-200 text-sm">
-                        &copy; {{ currentYear }} <span class="font-semibold text-white">AgroMinerva</span>. Cultivando el futuro de la agricultura.
+                        &copy; {{ currentYear }} <span class="font-semibold text-white">AgroMinerva</span>. Cultivando
+                        el futuro de la agricultura.
                     </p>
 
                     <!-- Enlaces Legales -->
@@ -116,7 +120,6 @@ const navItems = [
     { label: 'Inicio', to: '/', icon: 'pi pi-home' },
     { label: 'Tienda', to: '/tienda', icon: 'pi pi-shopping-bag' },
     { label: 'Blog Agrícola', to: '/blog', icon: 'pi pi-book' },
-    { label: 'Noticias', to: '/noticias', icon: 'pi pi-newspaper' },
     { label: 'Conócenos', to: '/conocenos', icon: 'pi pi-info-circle' }
 ]
 
