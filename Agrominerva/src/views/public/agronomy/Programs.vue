@@ -1,10 +1,15 @@
 <template>
   <div class="min-h-screen bg-white">
-    <div class="bg-tertiary-600 text-white py-20 border-b-4 border-accent-500">
-      <div class="container mx-auto px-4">
+    <div class="relative bg-tertiary-600 text-white py-20 border-b-4 border-accent-500 overflow-hidden">
+      <!-- Logo de fondo -->
+      <div class="absolute inset-0 opacity-10">
+        <img src="../../../assets/images/svg/MinervaLogoSvg.svg" alt="Logo Background"
+          class="absolute top-1/2 left- transform -translate-y-1/2 w-96 h-96 brightness-0 invert pointer-events-none" />
+      </div>
+      <!-- Contenido -->
+      <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl">
           <div class="flex items-center gap-4 mb-6">
-            <img src="../../../assets/images/minerv.png" alt="Logo" class="h-20 w-20" />
             <div>
               <h1 class="text-4xl md:text-5xl font-bold mb-2">
                 Ingeniería Agronómica
@@ -14,7 +19,6 @@
               </p>
             </div>
           </div>
-          
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 bg-tertiary-500 p-6 border-2 border-white">
             <div>
               <p class="text-sm text-primary-200">Total Asignaturas</p>
@@ -36,7 +40,6 @@
         </div>
       </div>
     </div>
-
     <div class="container mx-auto px-4 py-8">
       <div class="bg-gray-50 border-2 border-gray-200 p-6 mb-8">
         <div class="flex items-center gap-4 mb-4">
@@ -44,44 +47,25 @@
           <h2 class="text-xl font-bold text-gray-800">Filtrar por Ciclo</h2>
         </div>
         <div class="flex flex-wrap gap-3">
-          <Button 
-            label="Todos los Ciclos"
-            :severity="selectedCycle === null ? 'success' : 'secondary'"
-            :outlined="selectedCycle !== null"
-            @click="selectedCycle = null"
-            class="filter-button"
-          />
-          <Button 
-            v-for="cycle in cycles" 
-            :key="cycle"
-            :label="`Ciclo ${cycle}`"
-            :severity="selectedCycle === cycle ? 'success' : 'secondary'"
-            :outlined="selectedCycle !== cycle"
-            @click="selectedCycle = cycle"
-            class="filter-button"
-          />
+          <Button label="Todos los Ciclos" :severity="selectedCycle === null ? 'success' : 'secondary'"
+            :outlined="selectedCycle !== null" @click="selectedCycle = null" class="filter-button" />
+          <Button v-for="cycle in cycles" :key="cycle" :label="`Ciclo ${cycle}`"
+            :severity="selectedCycle === cycle ? 'success' : 'secondary'" :outlined="selectedCycle !== cycle"
+            @click="selectedCycle = cycle" class="filter-button" />
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <SubjectCard 
-          v-for="subject in filteredSubjects" 
-          :key="subject.id"
-          :subject="subject"
-          @open-detail="openSubjectDetail"
-        />
-        
+        <SubjectCard v-for="subject in filteredSubjects" :key="subject.id" :subject="subject"
+          @open-detail="openSubjectDetail" />
       </div>
 
       <div class="mt-12 bg-gray-50 border-2 border-gray-200 p-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Resumen por Ciclo</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div 
-            v-for="cycle in cycles" 
-            :key="cycle"
+          <div v-for="cycle in cycles" :key="cycle"
             class="bg-white border-2 border-gray-200 p-4 hover:border-accent-500 transition-colors cursor-pointer"
-            @click="selectedCycle = cycle"
-          >
+            @click="selectedCycle = cycle">
             <div class="flex items-center justify-between mb-3">
               <h3 class="text-lg font-bold text-gray-800">Ciclo {{ cycle }}</h3>
               <i class="pi pi-book text-accent-600 text-xl"></i>
@@ -128,7 +112,8 @@
       </div>
     </div>
 
-    <Dialog v-model:visible="showDetail" modal :style="{ width: '50rem' }" :breakpoints="{ '960px': '75vw', '640px': '90vw' }">
+    <Dialog v-model:visible="showDetail" modal :style="{ width: '50rem' }"
+      :breakpoints="{ '960px': '75vw', '640px': '90vw' }">
       <template #header>
         <div class="flex items-center gap-4">
           <div class="w-12 h-12 bg-accent-500 text-white flex items-center justify-center font-bold text-xl">
@@ -156,11 +141,8 @@
         <div v-if="selectedSubject.prerequisites.length > 0" class="border-2 border-gray-200 p-4">
           <p class="font-semibold text-gray-800 mb-3">Prerrequisitos:</p>
           <div class="flex flex-wrap gap-2">
-            <span 
-              v-for="prereq in selectedSubject.prerequisites" 
-              :key="prereq"
-              class="px-3 py-2 bg-gray-100 text-gray-700 border border-gray-300 font-medium"
-            >
+            <span v-for="prereq in selectedSubject.prerequisites" :key="prereq"
+              class="px-3 py-2 bg-gray-100 text-gray-700 border border-gray-300 font-medium">
               {{ prereq }}
             </span>
           </div>
@@ -170,8 +152,8 @@
           <p class="font-semibold text-gray-800 mb-2">Descripción:</p>
           <p class="text-gray-700 leading-relaxed">
             Esta materia forma parte del {{ selectedSubject.cycle }}° ciclo de la carrera de Ingeniería Agronómica.
-            {{ selectedSubject.prerequisites.length > 0 
-              ? 'Requiere haber aprobado las materias prerrequisito antes de poder cursarla.' 
+            {{ selectedSubject.prerequisites.length > 0
+              ? 'Requiere haber aprobado las materias prerrequisito antes de poder cursarla.'
               : 'No tiene prerrequisitos, puede cursarse desde el inicio.'
             }}
           </p>
@@ -184,17 +166,15 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import SubjectCard from '../../../components/public/agronomy/ProgramCard.vue' 
+import SubjectCard from '@/components/public/agronomy/ProgramCard.vue'
 
 const toast = useToast()
 
-// Estado
 const selectedCycle = ref(null)
 const showDetail = ref(false)
 const selectedSubject = ref(null)
 const cycles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-// Datos de las materias (sin cambios)
 const subjects = ref([
   // CICLO 1
   { id: 1, order: 1, code: 'MAT113', name: 'Matemática I', cycle: 1, credits: 4, category: 'Bachillerato', prerequisites: [] },
@@ -267,7 +247,6 @@ const subjects = ref([
   { id: 50, order: 50, code: 'AGR113', name: 'Agronegocios', cycle: 10, credits: 4, category: 'Específicas', prerequisites: ['FEP113'] }
 ])
 
-// Materias filtradas
 const filteredSubjects = computed(() => {
   if (selectedCycle.value === null) {
     return subjects.value
@@ -275,7 +254,6 @@ const filteredSubjects = computed(() => {
   return subjects.value.filter(s => s.cycle === selectedCycle.value)
 })
 
-// Estadísticas por ciclo
 const getCycleStats = (cycle) => {
   const cycleSubjects = subjects.value.filter(s => s.cycle === cycle)
   return {
@@ -284,8 +262,6 @@ const getCycleStats = (cycle) => {
   }
 }
 
-// Métodos
-// El método openSubjectDetail ahora recibe la materia directamente del evento emitido por SubjectCard
 const openSubjectDetail = (subject) => {
   selectedSubject.value = subject
   showDetail.value = true
