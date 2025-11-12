@@ -1,7 +1,17 @@
 <template>
-    <footer class="bg-tertiary-500 text-white mt-auto">
+
+    <footer class="bg-tertiary-500 text-white mt-auto relative overflow-hidden">
+
+        <!-- SVG de Verduras -->
+        <div class="absolute -left-[7%] top-0 bottom-0 w-3/4 pointer-events-none opacity-20">
+            <img src="../../assets/images/svg/svg_verdurasVegetales-removebg.svg" alt="Decoración verduras"
+                class="h-full w-full object-contain object-left"
+                style="filter: brightness(0) saturate(100%) invert(70%) sepia(17%) saturate(1500%) hue-rotate(75deg) brightness(95%) contrast(85%);" />
+        </div>
+
         <!-- Secciones Principales -->
-        <div class="container mx-auto px-4 py-12">
+        <div class="container mx-auto px-4 py-12 relative z-10">
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
 
                 <!-- Columna 1: Logo y Descripción -->
@@ -86,7 +96,7 @@
         </div>
 
         <!-- Barra Inferior -->
-        <div class="border-t border-primary-600/30 bg-tertiary-600/50">
+        <div class="border-t border-primary-600/30 bg-tertiary-600/50 relative z-10">
             <div class="container mx-auto px-4 py-6">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <!-- Copyright -->
@@ -105,6 +115,7 @@
             </div>
         </div>
     </footer>
+
 </template>
 
 <script setup>

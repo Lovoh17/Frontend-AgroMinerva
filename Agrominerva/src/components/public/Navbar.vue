@@ -44,10 +44,6 @@
                                         <Badge v-if="cartItemCount > 0" :value="cartItemCount" severity="danger"
                                             class="ml-auto" />
                                     </router-link>
-                                    <router-link to="/pedidos" class="dropdown-item group" @click="openDropdown = null">
-                                        <i class="pi pi-truck mr-3"></i>
-                                        <span>Mis Pedidos</span>
-                                    </router-link>
                                 </div>
                             </transition>
                         </div>
@@ -211,9 +207,8 @@ const navItemsWithDropdowns = computed(() => {
             to: '/tienda',
             icon: 'pi pi-shopping-bag',
             children: [
-                { label: 'Ver Tienda', to: '/tienda', icon: 'pi pi-store' },
+                { label: 'Ver Tienda', to: '/tienda', icon: 'pi pi-shopping-bag' },
                 { label: 'Mi Carrito', to: '/carrito', icon: 'pi pi-shopping-cart' },
-                { label: 'Mis Pedidos', to: '/pedidos', icon: 'pi pi-truck' }
             ]
         },
         {

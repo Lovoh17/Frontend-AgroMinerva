@@ -2,7 +2,7 @@
   <div class="p-6">
     <h1>Términos y Condiciones (Terms.vue)</h1>
     <article class="prose lg:prose-xl">
-      <p>...</p>
+      <p>Crear página de términos y condiciones con secciones organizadas y uso de acordeones para mejor lectura.</p>
     </article>
   </div>
 </template>

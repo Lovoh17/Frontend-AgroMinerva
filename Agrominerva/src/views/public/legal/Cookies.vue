@@ -2,7 +2,7 @@
   <div class="p-6">
     <h1>Política de Cookies (Cookies.vue)</h1>
     <article class="prose lg:prose-xl">
-      <p>...</p>
+      <p>Explicar el uso de cookies, incluir tabla con tipos y propósitos, y opciones de gestión.</p>
     </article>
   </div>
 </template>

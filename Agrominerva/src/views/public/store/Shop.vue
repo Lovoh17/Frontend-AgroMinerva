@@ -35,6 +35,7 @@
  */
 
 import { ref } from 'vue';
+import  ProductFilter from '@/components/public/store/ProductFilter.vue';
 //import ProductCard from '@/components/public/store/ProductCard.vue';
 
 // Datos de prueba (Reemplazar con la llamada a la API)

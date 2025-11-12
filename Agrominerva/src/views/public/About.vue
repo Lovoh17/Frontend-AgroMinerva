@@ -2,6 +2,7 @@
   <div class="p-6">
     <h1>Sobre Nosotros (About.vue)</h1>
     <p>Información sobre AgroMinerva.</p>
+    <p>Presentar información de la empresa: historia, misión, visión, valores y certificaciones.</p>
   </div>
 </template>
 
@@ -13,4 +14,4 @@
  * - [ ] Contar la historia de la empresa.
  * - [ ] (Opcional) Mostrar al equipo principal.
  */
-</script>
+</script> 

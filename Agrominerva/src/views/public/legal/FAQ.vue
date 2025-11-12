@@ -2,6 +2,8 @@
   <div class="p-6">
     <h1>Preguntas Frecuentes (FAQ.vue)</h1>
     <p>Listado de preguntas y respuestas.</p>
+    <p>Implementar preguntas frecuentes en formato acordeón, organizadas por categorías (productos, envíos, pagos,
+      devoluciones).</p>
   </div>
 </template>
 

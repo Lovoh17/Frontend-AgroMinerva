@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+import {FeedCard} from '@/components/public/blog/ActivityItem.vue';
 /*
  * @purpose: Mostrar un "timeline" o feed de actividades (ej. nuevos posts, nuevos productos).
  * @tasks:

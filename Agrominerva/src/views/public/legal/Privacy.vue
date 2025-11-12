@@ -2,7 +2,7 @@
   <div class="p-6">
     <h1>Política de Privacidad (Privacy.vue)</h1>
     <article class="prose lg:prose-xl">
-      <p>...</p>
+      <p>Redactar y estructurar la política de privacidad con secciones claras y diseño legible.</p>
     </article>
   </div>
 </template>
