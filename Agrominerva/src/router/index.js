@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 //import { authGuard } from './guards'
 import publicRoutes from './publicRoutes'
 
-
 const routes = [
   ...publicRoutes,
   {
@@ -10,7 +9,6 @@ const routes = [
     name: 'tests',
     component: () => import('../views/Tests.vue'),
   },
-  
 ]
 
 const router = createRouter({
@@ -33,6 +31,13 @@ router.afterEach((to) => {
       document.head.appendChild(meta)
     }
   }
+
+  // Console log que incluye keywords
+  console.log('🔄 SEO Router - Ruta:', to.name)
+  console.log('📝 Título:', to.meta.title || 'No definido')
+  console.log('📄 Descripción:', to.meta.description || 'No definida')
+  console.log('🔑 Keywords:', to.meta.keywords || 'No definidas')
+  console.log('---------------------------------------------------------------')
 })
 
 export default router

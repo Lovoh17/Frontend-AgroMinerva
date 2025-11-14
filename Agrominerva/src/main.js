@@ -1,3 +1,4 @@
+// main.js
 import './assets/main.css'
 import 'primeicons/primeicons.css'
 
@@ -23,6 +24,9 @@ import Sidebar from 'primevue/sidebar'
 import Badge from 'primevue/badge'
 import Ripple from 'primevue/ripple'
 
+// Importar head para SEO
+import { head } from '@/utils/seo' 
+
 Chart.register(...registerables)
 
 const app = createApp(App)
@@ -30,6 +34,7 @@ const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+app.use(head) 
 
 // Configurar PrimeVue
 app.use(PrimeVue, {
@@ -44,7 +49,7 @@ app.use(PrimeVue, {
 
 app.use(ToastService)
 
-// Registrar componentes de PrimeVue globalmente
+// Registrar componentes
 app.component('Button', Button)
 app.component('InputText', InputText)
 app.component('Breadcrumb', Breadcrumb)
@@ -53,10 +58,7 @@ app.component('Avatar', Avatar)
 app.component('Sidebar', Sidebar)
 app.component('Badge', Badge)
 
-// Registrar directivas de PrimeVue
 app.directive('badge', BadgeDirective)
 app.directive('ripple', Ripple)
 
 app.mount('#app')
-
-console.log('🚀 Aplicación iniciada con PrimeVue')
