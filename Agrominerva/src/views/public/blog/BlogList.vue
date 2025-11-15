@@ -54,10 +54,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useToast } from 'primevue/usetoast'
+import { useRouter } from 'vue-router'
 import PostCard from '@/components/public/blog/PostCard.vue'
 import NoPostsFound from '@/components/public/blog/NoPostFound.vue'
 
 const toast = useToast()
+const router = useRouter()
 
 // Estado
 const selectedCategory = ref('todos')
@@ -78,6 +80,7 @@ const categories = [
 const articles = ref([
   {
     id: 1,
+    slug: 'tecnicas-avanzadas-riego-goteo',
     title: 'Técnicas Avanzadas de Riego por Goteo para Maximizar Rendimientos',
     description: 'Descubre cómo implementar sistemas de riego por goteo inteligentes que pueden aumentar tu productividad hasta un 40% mientras reduces el consumo de agua significativamente.',
     image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800',
@@ -93,6 +96,7 @@ const articles = ref([
   },
   {
     id: 2,
+    slug: 'agricultura-regenerativa-produccion-sostenible',
     title: 'Agricultura Regenerativa: El Futuro de la Producción Sostenible',
     description: 'Explora las prácticas agrícolas que no solo producen alimentos, sino que también restauran la salud del suelo y mejoran los ecosistemas locales para las futuras generaciones.',
     image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800',
@@ -108,6 +112,7 @@ const articles = ref([
   },
   {
     id: 3,
+    slug: 'optimizacion-cultivo-maiz-siembra-cosecha',
     title: 'Optimización del Cultivo de Maíz: De la Siembra a la Cosecha',
     description: 'Una guía completa sobre las mejores prácticas para cultivar maíz de alta calidad, desde la selección de semillas hasta las técnicas de cosecha más eficientes.',
     image: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800',
@@ -123,6 +128,7 @@ const articles = ref([
   },
   {
     id: 4,
+    slug: 'consejos-combatir-plagas-forma-natural',
     title: '10 Consejos para Combatir Plagas de Forma Natural y Efectiva',
     description: 'Aprende métodos orgánicos y ecológicos para proteger tus cultivos de las plagas más comunes, sin comprometer la salud de tu producción ni del medio ambiente.',
     image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800',
@@ -175,13 +181,13 @@ const currentCategoryName = computed(() => {
 
 // Métodos
 const goToArticle = (id) => {
-  toast.add({
-    severity: 'info',
-    summary: 'Navegando al artículo',
-    detail: `Abriendo artículo #${id}`,
-    life: 3000
+  const article = articles.value.find(a => a.id === id)
+  if (!article) return
+
+  router.push({
+    name: 'BlogDetail',       // coincide con tu ruta
+    params: { slug: article.slug } // usas el slug en /blog/:slug
   })
-  // Aquí puedes agregar la navegación real al artículo
 }
 
 const handleTagClick = (tag) => {
@@ -206,6 +212,7 @@ const clearFilters = () => {
   })
 }
 </script>
+
 
 <style scoped>
 .filter-button {
