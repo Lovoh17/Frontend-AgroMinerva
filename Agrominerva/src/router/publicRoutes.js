@@ -196,7 +196,20 @@ const publicRoutes = [
           description: 'La página que buscas no existe. Regresa al inicio o navega por nuestro sitio del Departamento de Agronomía UES.',
           keywords: 'página no encontrada, error 404, enlace roto, sitio agronomía, UES'
         }
+      },
+
+      //MODAL PARA ELIMINAR
+    {
+      path: 'test-modal',
+      name: 'TestModal',
+      component: () => import('@/components/public/tests/TestModal.vue'),  
+      meta: {
+        title: 'Prueba de Modal | AgroMinerva',
+        description: 'Página temporal para probar el componente Modal.',
+        keywords: 'modal, prueba, confirmación'
       }
+    }
+
     ]
   }
 ]
