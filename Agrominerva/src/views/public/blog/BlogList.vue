@@ -1,5 +1,10 @@
 <template>
   <div class="min-h-screen bg-white">
+    <!-- Meta tags para SEO dinámico -->
+    <title>Blog Agrícola - Últimas Tendencias y Consejos para la Producción Agrícola</title>
+    <meta name="description" content="Descubre las últimas tendencias, técnicas innovadoras y consejos expertos para optimizar tu producción agrícola. Artículos sobre cultivos, tecnología, sostenibilidad y más.">
+    <meta name="keywords" content="blog agrícola, agricultura, cultivos, tecnología agrícola, sostenibilidad, consejos agrícolas, producción agrícola, riego, plagas, maíz">
+
     <!-- Hero Section -->
     <div class="bg-tertiary-600 text-white py-20 border-b-4 border-accent-500">
       <div class="container mx-auto px-4">

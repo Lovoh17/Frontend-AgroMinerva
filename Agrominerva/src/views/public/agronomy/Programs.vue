@@ -1,12 +1,15 @@
 <template>
   <div class="min-h-screen bg-white">
+    <!-- Meta tags para SEO dinámico -->
+    <title>Ingeniería Agronómica - Plan de Estudio 2021 | Universidad Minerva</title>
+    <meta name="description" content="Plan de estudios completo de Ingeniería Agronómica 2021. 50 asignaturas, 192 unidades valorativas, 5 años de duración. Consulta materias por ciclo, prerrequisitos y información importante.">
+    <meta name="keywords" content="ingeniería agronómica, plan de estudios, agronomía, materias, asignaturas, universidad, carrera agrícola, UNAH, ingeniería agrícola">
+
     <div class="relative bg-tertiary-600 text-white py-20 border-b-4 border-accent-500 overflow-hidden">
-      <!-- Logo de fondo -->
       <div class="absolute inset-0 opacity-10">
         <img src="../../../assets/images/svg/MinervaLogoSvg.svg" alt="Logo Background"
           class="absolute top-1/2 left- transform -translate-y-1/2 w-96 h-96 brightness-0 invert pointer-events-none" />
       </div>
-      <!-- Contenido -->
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl">
           <div class="flex items-center gap-4 mb-6">
