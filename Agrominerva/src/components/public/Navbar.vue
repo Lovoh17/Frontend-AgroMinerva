@@ -106,6 +106,11 @@
                                         <i class="pi pi-users mr-3"></i>
                                         <span>Nuestros Profesores</span>
                                     </router-link>
+                                    <router-link to="/agronomia/news" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-megaphone mr-3"></i>
+                                        <span>AgroNews</span>
+                                    </router-link>
                                     <router-link to="/agronomia/carrera" class="dropdown-item group"
                                         @click="openDropdown = null">
                                         <i class="pi pi-info-circle mr-3"></i>

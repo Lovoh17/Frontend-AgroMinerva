@@ -112,6 +112,11 @@ const publicRoutes = [
         }
       },
       {
+        path: '/agronomia/news',
+        name: 'AgroNews',
+        component: () => import('@/views/public/agronomy/News.vue')
+      },
+      {
         path: 'agronomia/carrera',
         name: 'CareerInfo',
         component: () => import('@/views/public/agronomy/CareerInfo.vue'),
