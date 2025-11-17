@@ -12,6 +12,8 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
 import BadgeDirective from 'primevue/badgedirective'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice' 
+import Tooltip from 'primevue/tooltip' 
 import Toast from 'primevue/toast'
 
 // Componentes PrimeVue 
@@ -48,6 +50,7 @@ app.use(PrimeVue, {
 })
 
 app.use(ToastService)
+app.use(ConfirmationService)
 
 // Registrar componentes
 app.component('Button', Button)
@@ -60,5 +63,6 @@ app.component('Badge', Badge)
 
 app.directive('badge', BadgeDirective)
 app.directive('ripple', Ripple)
+app.directive('tooltip', Tooltip)
 
 app.mount('#app')
