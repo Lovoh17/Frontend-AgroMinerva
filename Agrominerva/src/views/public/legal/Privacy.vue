@@ -133,7 +133,7 @@
 </template>
 
 <style scoped>
-/* ANIMACIONE ” */
+/* ANIMACIONE " */
 .hover-strong:hover {
   color: #16a34a;
   font-weight: 700;
@@ -159,10 +159,106 @@
 </style>
 
 <script setup>
-/*
- * @purpose: Mostrar la Política de Privacidad.
- * @tasks:
- * - [ ] Cargar y maquetar el contenido legal estático.
- * - [ ] (Recomendado) Usar clases de tipografía usar @tailwindcss/typography para formatear el texto.
- */
+import { useHead } from '@vueuse/head'
+
+// SEO META TAGS Y STRUCTURED DATA 
+useHead({
+  title: 'Política de Privacidad - AgroMinerva | Protección de Datos Personales',
+  meta: [
+    {
+      name: 'description',
+      content: 'Política de Privacidad de AgroMinerva. Conoce cómo protegemos tus datos personales, qué información recopilamos y tus derechos sobre la privacidad y protección de datos.'
+    },
+    {
+      name: 'keywords',
+      content: 'política de privacidad, protección de datos personales, GDPR, derechos del usuario, seguridad de datos, privacidad online, datos personales, información confidencial, AgroMinerva privacidad'
+    },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'AgroMinerva' },
+    // Open Graph para redes sociales
+    { property: 'og:title', content: 'Política de Privacidad - AgroMinerva' },
+    { property: 'og:description', content: 'Comprometidos con la protección de tus datos personales. Conoce nuestra política de privacidad y tus derechos.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://agrominerva.com/politica-privacidad' },
+    { property: 'og:locale', content: 'es_ES' },
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Política de Privacidad - AgroMinerva' },
+    { name: 'twitter:description', content: 'Transparencia y protección de tus datos personales. Conoce nuestros compromisos.' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://agrominerva.com/politica-privacidad' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Política de Privacidad",
+        "description": "Política de Privacidad de AgroMinerva sobre protección de datos personales",
+        "url": "https://agrominerva.com/politica-privacidad",
+        "dateModified": "2025-11-15",
+        "inLanguage": "es",
+        "publisher": {
+          "@type": "Organization",
+          "name": "AgroMinerva",
+          "url": "https://agrominerva.com"
+        },
+        "mainEntity": {
+          "@type": "Article",
+          "@id": "https://agrominerva.com/politica-privacidad#main",
+          "headline": "Política de Privacidad de AgroMinerva",
+          "datePublished": "2025-11-15",
+          "dateModified": "2025-11-15",
+          "author": {
+            "@type": "Organization",
+            "name": "AgroMinerva"
+          },
+          "about": [
+            {
+              "@type": "Thing",
+              "name": "Protección de Datos Personales"
+            },
+            {
+              "@type": "Thing",
+              "name": "Privacidad Online"
+            },
+            {
+              "@type": "Thing",
+              "name": "Derechos del Usuario"
+            }
+          ]
+        },
+        "hasPart": [
+          {
+            "@type": "WebPageElement",
+            "name": "Información que recopilamos",
+            "description": "Datos personales, de compra, técnicos y mensajes"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Cómo utilizamos la información",
+            "description": "Procesamiento de pedidos, mejora de experiencia y soporte"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Medidas de seguridad",
+            "description": "Protección técnica y administrativa de datos"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Compartición de datos",
+            "description": "No vendemos información personal"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Derechos del usuario",
+            "description": "Acceso, corrección, eliminación y restricción de datos"
+          }
+        ]
+      })
+    }
+  ]
+})
 </script>

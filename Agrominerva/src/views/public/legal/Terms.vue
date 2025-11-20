@@ -118,12 +118,110 @@
 
 
 <script setup>
-/*
- * @purpose: Mostrar los Términos y Condiciones del servicio.
- * @tasks:
- * - [ ] Cargar y maquetar el contenido legal estático.
- * - [ ] (Recomendado) Usar clases de tipografía (como @tailwindcss/typography) para formatear el texto.
- */
+import { useHead } from '@vueuse/head'
+
+//  SEO META TAGS Y STRUCTURED DATA 
+useHead({
+  title: 'Términos y Condiciones - AgroMinerva | Condiciones de Uso y Servicio',
+  meta: [
+    {
+      name: 'description',
+      content: 'Términos y Condiciones de uso de AgroMinerva. Conoce las reglas, condiciones de compra, responsabilidades y derechos al usar nuestro sitio web y servicios.'
+    },
+    {
+      name: 'keywords',
+      content: 'términos y condiciones, condiciones de uso, términos de servicio, condiciones de compra, responsabilidad legal, políticas de uso, acuerdo de usuario, AgroMinerva términos'
+    },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'AgroMinerva' },
+    // Open Graph para redes sociales
+    { property: 'og:title', content: 'Términos y Condiciones - AgroMinerva' },
+    { property: 'og:description', content: 'Conoce los términos y condiciones de uso de AgroMinerva. Información legal sobre nuestros servicios y productos.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://agrominerva.com/terminos-condiciones' },
+    { property: 'og:locale', content: 'es_ES' },
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Términos y Condiciones - AgroMinerva' },
+    { name: 'twitter:description', content: 'Condiciones de uso y servicio de AgroMinerva. Información legal para usuarios.' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://agrominerva.com/terminos-condiciones' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Términos y Condiciones",
+        "description": "Términos y Condiciones de uso del sitio web AgroMinerva",
+        "url": "https://agrominerva.com/terminos-condiciones",
+        "dateModified": "2025-11-15",
+        "inLanguage": "es",
+        "publisher": {
+          "@type": "Organization",
+          "name": "AgroMinerva",
+          "url": "https://agrominerva.com"
+        },
+        "mainEntity": {
+          "@type": "Article",
+          "@id": "https://agrominerva.com/terminos-condiciones#main",
+          "headline": "Términos y Condiciones de AgroMinerva",
+          "datePublished": "2025-11-15",
+          "dateModified": "2025-11-15",
+          "author": {
+            "@type": "Organization",
+            "name": "AgroMinerva"
+          },
+          "about": {
+            "@type": "Thing",
+            "name": "Términos Legales de Servicio"
+          }
+        },
+        "hasPart": [
+          {
+            "@type": "WebPageElement",
+            "name": "Uso del sitio web",
+            "description": "Normas sobre el uso responsable del sitio"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Productos y disponibilidad",
+            "description": "Condiciones sobre productos agrícolas y temporadas"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Condiciones de compra",
+            "description": "Requisitos y términos para realizar compras"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Protección de datos y privacidad",
+            "description": "Uso y protección de información del usuario"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Limitación de responsabilidad",
+            "description": "Alcance de responsabilidad de AgroMinerva"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Modificaciones a los términos",
+            "description": "Derecho a actualizar términos y condiciones"
+          },
+          {
+            "@type": "WebPageElement",
+            "name": "Contacto",
+            "description": "Canales de comunicación para consultas"
+          }
+        ]
+      })
+    }
+  ]
+})
+
+
 </script>
 
 <style scoped>
