@@ -3,15 +3,15 @@
     <template #header>
       <div class="relative overflow-hidden h-56 bg-neutral-200">
         <img 
-          :src="product.image" 
-          :alt="product.name"
+          :src="getProductImage(product)" 
+          :alt="product.nombre"
           class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           loading="lazy"
         />
         
         <!-- Badge de categoría -->
         <div class="absolute top-3 left-3">
-          <Tag :value="product.category" severity="success" class="font-semibold" />
+          <Tag :value="product.categoria?.nombre || 'General'" severity="success" class="font-semibold" />
         </div>
 
         <!-- Badge de stock -->
@@ -23,26 +23,6 @@
             icon="pi pi-times-circle"
           />
         </div>
-
-        <!-- Botones de acción rápida -->
-        <div class="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button 
-            icon="pi pi-eye" 
-            rounded
-            severity="secondary"
-            size="small"
-            @click.stop="viewDetails"
-            v-tooltip.top="'Ver detalles'"
-          ></Button>
-          <Button 
-            icon="pi pi-heart" 
-            rounded
-            severity="secondary"
-            size="small"
-            @click.stop="addToWishlist"
-            v-tooltip.top="'Agregar a favoritos'"
-          ></Button>
-        </div>
       </div>
     </template>
 
@@ -50,29 +30,18 @@
       <div class="p-4">
         <!-- Nombre del producto -->
         <h3 class="text-lg font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
-          {{ product.name }}
+          {{ product.nombre }}
         </h3>
 
         <!-- Descripción -->
         <p class="text-sm text-neutral-600 mb-3 line-clamp-2">
-          {{ product.description }}
+          {{ product.descripcion }}
         </p>
-
-        <!-- Rating y reviews -->
-        <div class="flex items-center gap-2 mb-3">
-          <Rating 
-            :modelValue="product.rating" 
-            :readonly="true" 
-            :cancel="false"
-            class="text-sm"
-          />
-          <span class="text-xs text-neutral-500">({{ product.reviews }})</span>
-        </div>
 
         <!-- Precio -->
         <div class="flex items-center justify-between mb-4">
           <div class="text-2xl font-bold text-primary-600">
-            ${{ product.price.toFixed(2) }}
+            ${{ product.precio?.toFixed(2) || '0.00' }}
           </div>
           <Chip 
             v-if="product.inStock" 
@@ -82,7 +51,7 @@
           />
         </div>
 
-        <!-- Botón de agregar al carrito -->
+       
         <Button 
           :label="product.inStock ? 'Añadir al Carrito' : 'No Disponible'" 
           icon="pi pi-shopping-cart" 
@@ -97,11 +66,12 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { useCartStore } from '../../../stores/cartStore'
+
+// Components
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Tag from 'primevue/tag'
-import Rating from 'primevue/rating'
 import Chip from 'primevue/chip'
 
 const props = defineProps({
@@ -111,23 +81,38 @@ const props = defineProps({
   }
 })
 
+const cartStore = useCartStore()
+
+// Helper functions
+const getProductImage = (product) => {
+  return product.imagenUrl || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=400&fit=crop'
+}
+
+// Event handlers - SOLO agregar al carrito
 const addToCart = () => {
-  if (props.product.inStock) {
-    // TO-DO: Implementar con Pinia store
-    console.log('Añadir al carrito:', props.product)
-    // useCartStore().addItem(props.product)
+  if (!props.product.inStock) {
+    // Mostrar notificación de error si no hay stock
+    if (window.$toast) {
+      window.$toast.add({
+        group: 'app',
+        severity: 'error',
+        summary: 'Producto no disponible',
+        detail: `${props.product.nombre} está agotado`,
+        life: 3000
+      })
+    }
+    return
   }
-}
-
-const addToWishlist = () => {
-  // TO-DO: Implementar lógica de favoritos
-  console.log('Añadir a favoritos:', props.product)
-}
-
-const viewDetails = () => {
-  // TO-DO: Navegar a la página de detalles del producto
-  console.log('Ver detalles de:', props.product)
-  // router.push(`/producto/${props.product.id}`)
+  
+  cartStore.addItem({
+    id: props.product.id,
+    name: props.product.nombre,
+    price: props.product.precio,
+    image: getProductImage(props.product),
+    category: props.product.categoria?.nombre,
+    inStock: props.product.inStock,
+    unit: props.product.unidad
+  })
 }
 </script>
 
