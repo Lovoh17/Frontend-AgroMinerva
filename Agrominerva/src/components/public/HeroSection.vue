@@ -81,7 +81,7 @@
               <video
                 v-if="showVideo"
                 ref="videoElement"
-                src=""
+                src="https://firebasestorage.googleapis.com/v0/b/pcarstore.firebasestorage.app/o/8_Video_invitacion_Pagina_WEB.mp4?alt=media&token=b02871bc-2510-4aea-ab84-a61ecf7e79bf"
                 class="w-full h-full object-cover"
                 :muted="isMuted"
                 autoplay
