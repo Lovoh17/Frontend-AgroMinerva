@@ -286,6 +286,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useHead } from '@vueuse/head';
 
 // ESTADO PARA CONTROLAR QUE PREGUNTAS ESTAN ABIERTAS
 const preguntasAbiertas = ref([]);
@@ -299,6 +300,112 @@ const alternarPregunta = (idPregunta) => {
     preguntasAbiertas.value.push(idPregunta);
   }
 };
+
+//  SEO META TAGS Y STRUCTURED DATA 
+useHead({
+  title: 'Preguntas Frecuentes (FAQ) - AgroMinerva | Envíos, Pagos y Devoluciones',
+  meta: [
+    {
+      name: 'description',
+      content: 'Resuelve tus dudas sobre productos orgánicos, envíos, métodos de pago, devoluciones y más. Preguntas frecuentes de AgroMinerva sobre agricultura sostenible.'
+    },
+    {
+      name: 'keywords',
+      content: 'preguntas frecuentes, FAQ productos orgánicos, envíos productos frescos, métodos de pago, devoluciones, productos sin pesticidas, tomates orgánicos, miel natural, tilapia fresca, AgroMinerva dudas'
+    },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'AgroMinerva' },
+    // Open Graph
+    { property: 'og:title', content: 'Preguntas Frecuentes - AgroMinerva' },
+    { property: 'og:description', content: 'Respuestas a tus dudas sobre productos orgánicos, envíos, pagos y devoluciones. Todo lo que necesitas saber.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://agrominerva.com/preguntas-frecuentes' },
+    { property: 'og:locale', content: 'es_ES' },
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'FAQ - AgroMinerva' },
+    { name: 'twitter:description', content: 'Encuentra respuestas sobre productos orgánicos, envíos y más.' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://agrominerva.com/preguntas-frecuentes' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué tipos de productos ofrecen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "En AgroMinerva ofrecemos productos frescos y de alta calidad, completamente libres de contaminantes y sin pesticidas presentes. Contamos con una amplia variedad de productos cuidadosamente seleccionados, incluyendo tomates, miel de abeja, cuajada de terron, tilapia, limones frescos, arayanes y plantas ornamentales, garantizando frescura, sabor y la mejor experiencia para nuestros clientes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo solicitar un producto específico?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, puedes contactarnos para verificar disponibilidad y tiempos de entrega de productos especiales."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto tardan los envíos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Los envíos se realizan en un plazo de 24 a 72 horas, dependiendo de la ubicación."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuál es el costo del envío?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El costo de envío se calcula automáticamente según la dirección y cantidad de productos en tu pedido."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué métodos de pago aceptan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Aceptamos pagos con tarjeta de crédito, débito, PayPal y transferencias bancarias."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Es seguro pagar en línea?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, todos los pagos están protegidos mediante encriptación SSL y cumpliendo normas de seguridad."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo devolver un producto?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, aceptamos devoluciones de productos dentro de los 7 días posteriores a la entrega, siempre que estén en buen estado."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo realizo una devolución?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Contacta a nuestro equipo de soporte, y te indicaremos los pasos a seguir para procesar la devolución."
+            }
+          }
+        ]
+      })
+    }
+  ]
+})
+
 </script>
 
 <style scoped>

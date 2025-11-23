@@ -29,9 +29,10 @@
       <div class="prose prose-gray lg:prose-lg listas max-w-none">
         <h2 class="text-[#16a34a]">1. ¿Qué son las cookies?</h2>
         <p>
-          Una cookie es un pequeño archivo de texto emitido por un sitio web y almacenada en 
-          el navegador del usuario, que contiene información sobre la actividad del usuario en 
-          el sitio web, de manera que el sitio web puede consultar la actividad previa del usuario.
+          Una cookie es un pequeño archivo de texto emitido por un sitio web y 
+          almacenada en el navegador del usuario, que contiene información sobre la
+          actividad del usuario en el mismo sitio web, de manera que el sitio web puede 
+          consultar la actividad previa del usuario en dicho sitio web.
         </p>
 
         <!-- 2. TIPOS DE COOKIES QUE UTILIZAMOS-->
@@ -95,6 +96,74 @@
 </template>
 
 <script setup>
+import { useHead } from '@vueuse/head'
+
+//  SEO META TAGS Y STRUCTURED DATA 
+useHead({
+  title: 'Política de Cookies - AgroMinerva | Gestión y Privacidad de Cookies',
+  meta: [
+    {
+      name: 'description',
+      content: 'Política de Cookies de AgroMinerva. Conoce qué son las cookies, cómo las utilizamos, tipos de cookies y cómo gestionar tus preferencias de privacidad.'
+    },
+    {
+      name: 'keywords',
+      content: 'política de cookies, cookies sitio web, privacidad cookies, gestionar cookies, cookies navegador, cookies terceros, protección datos, consentimiento cookies, desactivar cookies, AgroMinerva'
+    },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'AgroMinerva' },
+    // Open Graph para redes sociales
+    { property: 'og:title', content: 'Política de Cookies - AgroMinerva' },
+    { property: 'og:description', content: 'Información sobre el uso de cookies en nuestro sitio web. Transparencia y control de tu privacidad.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://agrominerva.com/politica-cookies' },
+    { property: 'og:locale', content: 'es_ES' },
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Política de Cookies - AgroMinerva' },
+    { name: 'twitter:description', content: 'Conoce cómo utilizamos cookies y gestiona tus preferencias de privacidad.' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://agrominerva.com/politica-cookies' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Política de Cookies",
+        "description": "Política de uso de cookies de AgroMinerva",
+        "url": "https://agrominerva.com/politica-cookies",
+        "dateModified": "2025-11-16",
+        "inLanguage": "es",
+        "publisher": {
+          "@type": "Organization",
+          "name": "AgroMinerva",
+          "url": "https://agrominerva.com"
+        },
+        "mainEntity": {
+          "@type": "Article",
+          "@id": "https://agrominerva.com/politica-cookies#main",
+          "headline": "Política de Cookies de AgroMinerva",
+          "datePublished": "2025-11-16",
+          "dateModified": "2025-11-16",
+          "author": {
+            "@type": "Organization",
+            "name": "AgroMinerva"
+          },
+          "about": {
+            "@type": "Thing",
+            "name": "Cookies Web",
+            "description": "Archivos de datos almacenados por sitios web en navegadores"
+          }
+        }
+      })
+    }
+  ]
+})
+
+
 </script>
 
 <style scoped>
