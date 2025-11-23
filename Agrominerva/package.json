@@ -12,11 +12,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@primevue/themes": "^4.4.1",
     "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^3.0.3",
     "chart.js": "^4.5.1",
+    "emailjs": "^4.0.3",
     "pinia": "^3.0.3",
     "primeicons": "^7.0.0",
     "primevue": "^4.4.1",
