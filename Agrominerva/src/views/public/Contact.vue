@@ -15,7 +15,7 @@
         <!-- Formulario de Contacto -->
         <Card class="shadow-lg border-0 overflow-hidden">
           <template #content>
-                          <div class="p-5">
+            <div class="p-5">
               <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-primary-100">
                 <div class="w-9 h-9 bg-primary-700 rounded-lg flex items-center justify-center">
                   <i class="pi pi-envelope text-white"></i>
@@ -116,6 +116,21 @@
                   </small>
                 </div>
 
+                <!-- Información adicional -->
+                <div class="bg-primary-50 border border-primary-200 rounded-lg p-3">
+                  <div class="flex items-start gap-2">
+                    <i class="pi pi-send text-primary-600 mt-0.5"></i>
+                    <div>
+                      <p class="text-primary-800 text-sm font-medium">
+                        Tu mensaje será enviado directamente
+                      </p>
+                      <p class="text-primary-700 text-xs mt-1">
+                        Recibirás una confirmación al correo: <strong>{{ formData.email || 'tu email' }}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Botón Enviar -->
                 <Button 
                   @click="handleSubmit"
@@ -155,8 +170,8 @@
                     <div>
                       <h3 class="font-bold text-neutral-800 mb-1 text-sm">Dirección</h3>
                       <p class="text-neutral-600 text-sm leading-relaxed">
-                        Cantón El Jícaro, Apopa<br>
-                        San Salvador, El Salvador
+                        Universidad de El Salvador<br>
+                        San Miguel, El Salvador
                       </p>
                     </div>
                   </div>
@@ -170,8 +185,8 @@
                     </div>
                     <div>
                       <h3 class="font-bold text-neutral-800 mb-1 text-sm">Teléfono</h3>
-                      <a href="tel:+50322780000" class="text-primary-600 hover:text-primary-700 font-medium hover:underline text-sm">
-                        (+503) 2278-0000
+                      <a href="tel:+50374833786" class="text-primary-600 hover:text-primary-700 font-medium hover:underline text-sm">
+                        (+503) 7483-3786
                       </a>
                     </div>
                   </div>
@@ -185,8 +200,8 @@
                     </div>
                     <div>
                       <h3 class="font-bold text-neutral-800 mb-1 text-sm">Email</h3>
-                      <a href="mailto:info@agrominerva.edu.sv" class="text-primary-600 hover:text-primary-700 font-medium hover:underline break-all text-sm">
-                        info@agrominerva.edu.sv
+                      <a href="mailto:agrominervafmo@gmail.com" class="text-primary-600 hover:text-primary-700 font-medium hover:underline break-all text-sm">
+                        agrominervafmo@gmail.com
                       </a>
                     </div>
                   </div>
@@ -225,12 +240,6 @@
                       @click="openSocialMedia('instagram')"
                     ></Button>
                     <Button 
-                      icon="pi pi-twitter" 
-                      rounded
-                      class="w-10 h-10 bg-white border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
-                      @click="openSocialMedia('twitter')"
-                    ></Button>
-                    <Button 
                       icon="pi pi-whatsapp" 
                       rounded
                       class="w-10 h-10 bg-white border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
@@ -257,14 +266,14 @@
 
                 <div class="aspect-video rounded-lg overflow-hidden border-2 border-neutral-200 shadow-md mb-4">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15402.944744366932!2d-89.18!3d13.80!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ4JzAwLjAiTiA4OcKwMTAnNDguMCJX!5e0!3m2!1ses!2ssv!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3880.5614742981975!2d-88.16159952664137!3d13.439449204451991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad60898c04ae9%3A0x7ddb6f49a38c1b43!2sFacultad%20Multidisciplinaria%20Oriental%20UES!5e0!3m2!1ses!2ssv!4v1763762713687!5m2!1ses!2ssv"
                     width="100%" 
                     height="100%" 
                     style="border:0;" 
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
-                    title="Ubicación de AgroMinerva"
+                    title="Ubicación de AgroMinerva - Facultad Multidisciplinaria Oriental UES"
                   ></iframe>
                 </div>
                 <Button 
@@ -294,6 +303,7 @@ import Textarea from 'primevue/textarea'
 import Dropdown from 'primevue/dropdown'
 import Button from 'primevue/button'
 import Toast from 'primevue/toast'
+import { emailService } from '@/services/emailService'
 
 const toast = useToast()
 
@@ -386,40 +396,55 @@ const handleSubmit = async () => {
 
   loading.value = true
 
-  // Simular envío al backend
-  setTimeout(() => {
-    loading.value = false
+  try {
+    // Enviar email usando EmailJS
+    await emailService.sendContactEmail(formData)
     
     toast.add({
       severity: 'success',
-      summary: 'Mensaje Enviado',
-      detail: 'Tu mensaje ha sido enviado exitosamente. Te contactaremos pronto.',
+      summary: '¡Mensaje Enviado!',
+      detail: 'Tu mensaje ha sido enviado exitosamente. Te responderemos pronto.',
       life: 5000
     })
 
     // Resetear formulario
-    Object.keys(formData).forEach(key => formData[key] = '')
-    Object.keys(errors).forEach(key => errors[key] = '')
+    setTimeout(() => {
+      Object.keys(formData).forEach(key => formData[key] = '')
+      Object.keys(errors).forEach(key => errors[key] = '')
+    }, 1500)
     
-  }, 1500)
+  } catch (error) {
+    console.error('Error al enviar el correo:', error)
+    
+    toast.add({
+      severity: 'error',
+      summary: 'Error al Enviar',
+      detail: error.message || 'No se pudo enviar el mensaje. Por favor intenta nuevamente.',
+      life: 5000
+    })
+  } finally {
+    loading.value = false
+  }
 }
 
 // Abrir redes sociales
 const openSocialMedia = (platform) => {
   const urls = {
-    facebook: 'https://facebook.com/agrominerva',
-    instagram: 'https://instagram.com/agrominerva',
-    twitter: 'https://twitter.com/agrominerva'
+    facebook: 'https://www.facebook.com/profile.php?id=61580325832835',
+    instagram: 'https://www.instagram.com/agrominerva_'
   }
   window.open(urls[platform], '_blank')
 }
 
 const openWhatsApp = () => {
-  window.open('https://wa.me/50322780000', '_blank')
+  const message = 'Hola, me gustaría obtener información sobre AgroMinerva'
+  const encodedMessage = encodeURIComponent(message)
+  window.open(`https://wa.me/50374833786?text=${encodedMessage}`, '_blank')
 }
 
 const openGoogleMaps = () => {
-  window.open('https://goo.gl/maps/example', '_blank')
+  // Usando el link compartido que proporcionaste
+  window.open('https://maps.app.goo.gl/NOsC8YaoBOFdw5rcB', '_blank')
 }
 </script>
 

@@ -1,158 +1,230 @@
 <template>
   <div class="featured-products">
+    <h2 class="text-3xl font-bold text-neutral-900 mb-8">Productos de Temporada</h2>
+    
     <div class="grid md:grid-cols-3 gap-8">
       <Card 
-        v-for="product in seasonalProducts" 
+        v-for="product in featuredProducts" 
         :key="product.id"
         class="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer border-0"
       >
         <template #header>
           <div class="relative overflow-hidden h-64 bg-neutral-200">
             <img 
-              :src="product.image" 
-              :alt="product.name"
+              :src="getProductImage(product)" 
+              :alt="product.nombre"
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
             <div class="absolute top-4 right-4">
-              <Tag :value="product.category" severity="success" class="font-semibold" />
+              <Tag :value="product.categoria?.nombre || 'General'" severity="success" class="font-semibold" />
             </div>
-            <div v-if="product.discount" class="absolute top-4 left-4">
-              <Tag :value="`-${product.discount}%`" severity="danger" class="font-bold text-lg" />
+            <div class="absolute top-4 left-4">
+              <Tag value="Temporada" severity="warning" class="font-bold" />
             </div>
           </div>
         </template>
 
         <template #title>
           <h3 class="text-xl font-bold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
-            {{ product.name }}
+            {{ product.nombre }}
           </h3>
         </template>
 
         <template #content>
           <p class="text-neutral-600 mb-4 line-clamp-2 text-sm">
-            {{ product.description }}
+            {{ product.descripcion || 'Sin descripción disponible' }}
           </p>
 
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-1">
-              <Rating :modelValue="product.rating" :readonly="true" :cancel="false" class="text-sm" />
-              <span class="text-neutral-500 text-sm ml-2">({{ product.reviews }})</span>
+            <div class="text-2xl font-bold text-primary-600">
+              ${{ (product.precio || 0).toFixed(2) }}
+            </div>
+            <div class="text-xs text-neutral-500">
+              por {{ product.unidad || 'unidad' }}
             </div>
           </div>
 
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <div v-if="product.discount" class="text-sm text-neutral-400 line-through">
-                ${{ product.originalPrice.toFixed(2) }}
-              </div>
-              <div class="text-2xl font-bold text-primary-600">
-                ${{ product.price.toFixed(2) }}
-              </div>
-              <div class="text-xs text-neutral-500 mt-1">
-                por {{ product.unit }}
-              </div>
-            </div>
+          <div class="flex items-center justify-between">
             <Chip 
               v-if="product.inStock" 
-              label="En Stock" 
+              :label="`Stock: ${product.stock}`" 
               icon="pi pi-check-circle" 
               class="bg-primary-100 text-primary-700"
             />
             <Chip 
               v-else 
-              label="Agotado" 
-              icon="pi pi-times-circle" 
-              severity="danger"
+              label="Consultar stock" 
+              icon="pi pi-question-circle" 
+              severity="warning"
             />
           </div>
         </template>
 
         <template #footer>
-          <div class="flex gap-2">
-            <Button 
-              label="Añadir al Carrito" 
-              icon="pi pi-shopping-cart" 
-              class="flex-1 bg-primary-600 hover:bg-primary-700 border-0"
-              :disabled="!product.inStock"
-              @click="addToCart(product)"
-            />
-            <Button 
-              icon="pi pi-heart" 
-              severity="secondary"
-              outlined
-              @click="addToWishlist(product)"
-            />
-          </div>
+          <!--  botón de agregar al carrito -->
+          <Button 
+            :label="product.inStock ? 'Añadir al Carrito' : 'No Disponible'" 
+            icon="pi pi-shopping-cart" 
+            class="w-full"
+            :class="product.inStock ? 'bg-primary-600 hover:bg-primary-700 border-0' : 'bg-neutral-300 cursor-not-allowed'"
+            :disabled="!product.inStock"
+            @click="addToCart(product)"
+          ></Button>
         </template>
       </Card>
+    </div>
+
+    <!-- Estado de carga -->
+    <div v-if="loading" class="text-center py-8">
+      <ProgressSpinner style="width: 50px; height: 50px" />
+      <p class="mt-4 text-neutral-600">Cargando productos destacados...</p>
+    </div>
+
+    <!-- Estado vacío -->
+    <div v-if="!loading && featuredProducts.length === 0" class="text-center py-8">
+      <i class="pi pi-inbox text-4xl text-neutral-400 mb-4"></i>
+      <p class="text-neutral-600">No hay productos destacados disponibles</p>
+      <Button label="Reintentar" icon="pi pi-refresh" @click="loadFeaturedProducts" class="mt-4" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useCartStore } from '../../../stores/cartStore'
+import { productService } from '../../../services/productService'
+import { inventoryService } from '../../../services/inventoryService'
+
+// Components
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Tag from 'primevue/tag'
-import Rating from 'primevue/rating'
 import Chip from 'primevue/chip'
+import ProgressSpinner from 'primevue/progressspinner'
 
-// Productos de temporada de AgroMinerva (máximo 3)
-const seasonalProducts = ref([
-  {
-    id: 101,
-    name: 'Carne de Conejo Fresca',
-    description: 'Carne de conejo de alta calidad, criada en nuestras instalaciones. Rica en proteínas y baja en grasas. Ideal para una alimentación saludable.',
-    price: 2.50,
-    originalPrice: 3.00,
-    discount: 17,
-    rating: 4.9,
-    reviews: 87,
-    category: 'Temporada',
-    image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=600&h=400&fit=crop',
-    inStock: true,
-    unit: 'libra'
-  },
-  {
-    id: 102,
-    name: 'Pepino Fresco',
-    description: 'Pepinos frescos cultivados de manera orgánica en nuestros invernaderos. Crujientes, jugosos y perfectos para ensaladas.',
-    price: 0.20,
-    originalPrice: 0.25,
-    discount: 20,
-    rating: 4.7,
-    reviews: 145,
-    category: 'Temporada',
-    image: 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?w=600&h=400&fit=crop',
-    inStock: true,
-    unit: 'unidad'
-  },
-  {
-    id: 103,
-    name: 'Miel de Abeja Pura',
-    description: 'Miel 100% natural producida por nuestras abejas. Sin aditivos ni conservantes. Endulza naturalmente y aporta beneficios para la salud.',
-    price: 8.50,
-    originalPrice: 10.00,
-    discount: 15,
-    rating: 5.0,
-    reviews: 203,
-    category: 'Temporada',
-    image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&h=400&fit=crop',
-    inStock: true,
-    unit: 'frasco 16oz'
+// State
+const featuredProducts = ref([])
+const loading = ref(false)
+
+// Stores
+const cartStore = useCartStore()
+
+// Cargar productos destacados - LOS 3 CON MÁS STOCK
+const loadFeaturedProducts = async () => {
+  loading.value = true
+  try {
+    console.log(' Cargando productos destacados...')
+    
+    const allProducts = await productService.getProducts()
+    console.log(' Todos los productos:', allProducts)
+    
+    if (!allProducts || allProducts.length === 0) {
+      featuredProducts.value = []
+      return
+    }
+    
+    // Obtener stock para TODOS los productos
+    const productsWithStock = await Promise.all(
+      allProducts.map(async (product) => {
+        try {
+          const stock = await inventoryService.getStockByProduct(product.id)
+          console.log(` ${product.nombre} - Stock: ${stock}`)
+          
+          return {
+            ...product,
+            stock: stock,
+            inStock: stock > 0,
+            hasRealStock: true
+          }
+        } catch (error) {
+          console.warn(` Sin stock info para ${product.nombre}, usando valor por defecto`)
+          // Si no hay información de stock, asumimos que está disponible
+          return {
+            ...product,
+            stock: 0, // Poner 0 para que no sea destacado si no tiene stock real
+            inStock: false,
+            hasRealStock: false
+          }
+        }
+      })
+    )
+    
+    // Filtrar solo productos con stock real y mayor a 0
+    const productsWithRealStock = productsWithStock.filter(p => p.hasRealStock && p.inStock)
+    
+    console.log(` Productos con stock real: ${productsWithRealStock.length}`)
+    
+    if (productsWithRealStock.length > 0) {
+      // Ordenar por stock descendente y tomar los 3 primeros
+      featuredProducts.value = productsWithRealStock
+        .sort((a, b) => b.stock - a.stock)
+        .slice(0, 3)
+      
+      console.log(' Productos destacados (con stock real):', featuredProducts.value)
+    } else {
+      // Si no hay productos con stock real, usar los primeros 3 disponibles
+      const availableProducts = productsWithStock
+        .filter(p => p.inStock)
+        .slice(0, 3)
+      
+      featuredProducts.value = availableProducts
+      console.log(' Productos destacados (sin stock real):', featuredProducts.value)
+    }
+    
+  } catch (error) {
+    console.error(' Error crítico:', error)
+    // Fallback: usar los primeros 3 productos
+    try {
+      const allProducts = await productService.getProducts()
+      featuredProducts.value = allProducts.slice(0, 3).map(product => ({
+        ...product,
+        stock: 10,
+        inStock: true,
+        hasRealStock: false
+      }))
+    } catch (fallbackError) {
+      featuredProducts.value = []
+    }
+  } finally {
+    loading.value = false
   }
-])
+}
 
+// Helper functions
+const getProductImage = (product) => {
+  return product.imagenUrl || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=400&fit=crop'
+}
+
+// Event handlers -  agregar al carrito
 const addToCart = (product) => {
-  // TODO: Implementar lógica con Pinia store
-  console.log('Añadir al carrito:', product)
-  // useCartStore().addItem(product)
+  if (!product.inStock) {
+    if (window.$toast) {
+      window.$toast.add({
+        group: 'app',
+        severity: 'error',
+        summary: 'Producto no disponible',
+        detail: `${product.nombre} está agotado`,
+        life: 3000
+      })
+    }
+    return
+  }
+  
+  cartStore.addItem({
+    id: product.id,
+    name: product.nombre,
+    price: product.precio || 0,
+    image: getProductImage(product),
+    category: product.categoria?.nombre,
+    inStock: product.inStock,
+    unit: product.unidad || 'unidad'
+  })
 }
 
-const addToWishlist = (product) => {
-  // TODO: Implementar lógica de favoritos
-  console.log('Añadir a favoritos:', product)
-}
+// Lifecycle
+onMounted(() => {
+  loadFeaturedProducts()
+})
 </script>
 
 <style scoped>

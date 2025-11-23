@@ -28,8 +28,9 @@
                     <!-- Redes Sociales -->
                     <div class="flex space-x-2">
                         <Button v-for="social in socialLinks" :key="social.name" :icon="social.icon" text
-                            class="text-white hover:text-accent-400 hover:bg-white/10 rounded-full transition-all duration-300 w-10 h-10"
-                            severity="secondary" />
+                            class="text-accent-400 hover:text-white hover:bg-accent-500/20 rounded-full transition-all duration-300 w-10 h-10"
+                            severity="secondary"
+                            @click="openSocialMedia(social.name)" />
                     </div>
                 </div>
 
@@ -57,21 +58,23 @@
                     <div class="space-y-4 mb-6">
                         <div class="flex items-start space-x-3 group">
                             <i class="pi pi-map-marker text-accent-400 mt-1 text-lg"></i>
-                            <span class="text-primary-100 text-sm leading-relaxed">Calle Principal #123, Ciudad
-                                Agrícola, País</span>
+                            <span class="text-primary-100 text-sm leading-relaxed">Universidad de El Salvador<br>San Miguel, El Salvador</span>
                         </div>
                         <div class="flex items-center space-x-3 group">
                             <i class="pi pi-phone text-accent-400 text-lg"></i>
-                            <span class="text-primary-100 text-sm">+503 1234-5678</span>
+                            <a href="tel:+50374833786" class="text-primary-100 hover:text-accent-400 text-sm transition-colors">
+                                +503 7483-3786
+                            </a>
                         </div>
                         <div class="flex items-center space-x-3 group">
                             <i class="pi pi-envelope text-accent-400 text-lg"></i>
-                            <span class="text-primary-100 text-sm">contacto@agrominerva.com</span>
+                            <a href="mailto:agrominervafmo@gmail.com" class="text-primary-100 hover:text-accent-400 text-sm transition-colors break-all">
+                                agrominervafmo@gmail.com
+                            </a>
                         </div>
                         <div class="flex items-start space-x-3 group">
                             <i class="pi pi-clock text-accent-400 mt-1 text-lg"></i>
-                            <span class="text-primary-100 text-sm">Lun - Vie: 8:00 AM - 5:00 PM<br>Sáb: 8:00 AM - 12:00
-                                PM</span>
+                            <span class="text-primary-100 text-sm">Lunes a Viernes: 7:00 AM - 4:00 PM<br>Sábado: 8:00 AM - 12:00 PM</span>
                         </div>
                     </div>
 
@@ -88,7 +91,7 @@
                                 class="flex-1 bg-tertiary-600 border-tertiary-400 text-white placeholder-primary-300 focus:border-accent-500" />
                             <Button icon="pi pi-send"
                                 class="bg-accent-500 hover:bg-accent-600 border-accent-500 text-white shadow-lg"
-                                @click="subscribeNewsletter" :disabled="!email" />
+                                @click="subscribeNewsletter" :disabled="!email" ></Button>
                         </div>
                     </div>
                 </div>
@@ -121,11 +124,13 @@
 <script setup>
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
+import { newsletterService } from '@/services/newsletterService'
 
 const toast = useToast()
 const email = ref('')
 const logo = ref(true)
 const currentYear = ref(new Date().getFullYear())
+const loading = ref(false)
 
 const navItems = [
     { label: 'Inicio', to: '/', icon: 'pi pi-home' },
@@ -135,11 +140,9 @@ const navItems = [
 ]
 
 const socialLinks = [
-    { name: 'Facebook', icon: 'pi pi-facebook' },
-    { name: 'Twitter', icon: 'pi pi-twitter' },
-    { name: 'Instagram', icon: 'pi pi-instagram' },
-    { name: 'LinkedIn', icon: 'pi pi-linkedin' },
-    { name: 'YouTube', icon: 'pi pi-youtube' }
+    { name: 'Facebook', icon: 'pi pi-facebook', url: 'https://www.facebook.com/profile.php?id=61580325832835' },
+    { name: 'Instagram', icon: 'pi pi-instagram', url: 'https://www.instagram.com/agrominerva_' },
+    { name: 'WhatsApp', icon: 'pi pi-whatsapp', url: 'https://wa.me/50374833786' }
 ]
 
 const legalLinks = [
@@ -149,15 +152,59 @@ const legalLinks = [
     { label: 'Aviso Legal', to: '/aviso-legal' }
 ]
 
-const subscribeNewsletter = () => {
-    if (email.value) {
+const openSocialMedia = (name) => {
+    const social = socialLinks.find(s => s.name === name)
+    if (social && social.url) {
+        window.open(social.url, '_blank')
+    }
+}
+
+const subscribeNewsletter = async () => {
+    if (!email.value) {
+        toast.add({
+            severity: 'warn',
+            summary: 'Email Requerido',
+            detail: 'Por favor ingresa tu correo electrónico',
+            life: 3000
+        })
+        return
+    }
+
+    // Validar formato de email
+    if (!newsletterService.validateEmail(email.value)) {
+        toast.add({
+            severity: 'error',
+            summary: 'Email Inválido',
+            detail: 'Por favor ingresa un correo electrónico válido',
+            life: 3000
+        })
+        return
+    }
+
+    loading.value = true
+
+    try {
+        await newsletterService.subscribeToNewsletter(email.value)
+        
         toast.add({
             severity: 'success',
             summary: '¡Suscrito Exitosamente!',
-            detail: 'Gracias por unirte a nuestra comunidad agrícola.',
-            life: 4000
+            detail: 'Gracias por unirte a nuestra comunidad agrícola. Revisa tu correo.',
+            life: 5000
         })
+        
         email.value = ''
+    } catch (error) {
+        console.error('Error al suscribir:', error)
+        
+        toast.add({
+            severity: 'error',
+            summary: 'Error de Suscripción',
+            detail: error.message || 'No se pudo completar la suscripción. Intenta nuevamente.',
+            life: 5000
+        })
+    } finally {
+        loading.value = false
     }
 }
 </script>
