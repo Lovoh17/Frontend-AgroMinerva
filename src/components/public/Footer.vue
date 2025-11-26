@@ -17,7 +17,7 @@
                 <!-- Columna 1: Logo y Descripción -->
                 <div class="lg:col-span-5">
                     <div class="mb-6">
-                        <img src="../../assets/images/AGRO-MINERVA-BLANCO.png" alt="Logo AgroMinerva"
+                        <img src="../../assets/images/AGRO-MINERVA-VERTICAL-SIN-FONDO.png" alt="Logo AgroMinerva"
                             class="h-48 w-auto" v-if="logo" />
                     </div>
                     <p class="text-primary-100 mb-6 leading-relaxed">
