@@ -11,115 +11,13 @@
 
                 <div class="flex items-center space-x-4 flex-shrink-0">
                     <nav class="hidden lg:flex items-center space-x-4">
+                        <!-- Inicio -->
                         <router-link to="/" class="nav-link group">
                             <i class="pi pi-home mr-2 text-lg transition-transform group-hover:scale-110"></i>
                             <span class="font-semibold">Inicio</span>
                         </router-link>
 
-                        <div class="relative group" @mouseenter="openDropdown = 'shop'"
-                            @mouseleave="openDropdown = null">
-                            <button class="nav-link group">
-                                <i
-                                    class="pi pi-shopping-bag mr-2 text-lg transition-transform group-hover:scale-110"></i>
-                                <span class="font-semibold">Tienda</span>
-                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
-                                    :class="{ 'rotate-180': openDropdown === 'shop' }"></i>
-                            </button>
-
-                            <transition enter-active-class="transition-all duration-200 ease-out"
-                                leave-active-class="transition-all duration-150 ease-in"
-                                enter-from-class="opacity-0 scale-95 translate-y-2"
-                                enter-to-class="opacity-100 scale-100 translate-y-0"
-                                leave-from-class="opacity-100 scale-100 translate-y-0"
-                                leave-to-class="opacity-0 scale-95 translate-y-2">
-                                <div v-if="openDropdown === 'shop'"
-                                    class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                                    <router-link to="/tienda" class="dropdown-item group" @click="openDropdown = null">
-                                        <i class="pi pi-store mr-3"></i>
-                                        <span>Ver Tienda</span>
-                                    </router-link>
-                                    <router-link to="/carrito" class="dropdown-item group" @click="openDropdown = null">
-                                        <i class="pi pi-shopping-cart mr-3"></i>
-                                        <span>Mi Carrito</span>
-                                        <Badge v-if="cartItemCount > 0" :value="cartItemCount" severity="danger"
-                                            class="ml-auto" />
-                                    </router-link>
-                                </div>
-                            </transition>
-                        </div>
-
-                        <div class="relative group" @mouseenter="openDropdown = 'blog'"
-                            @mouseleave="openDropdown = null">
-                            <button class="nav-link group">
-                                <i class="pi pi-book mr-2 text-lg transition-transform group-hover:scale-110"></i>
-                                <span class="font-semibold">Blog</span>
-                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
-                                    :class="{ 'rotate-180': openDropdown === 'blog' }"></i>
-                            </button>
-
-                            <transition enter-active-class="transition-all duration-200 ease-out"
-                                leave-active-class="transition-all duration-150 ease-in"
-                                enter-from-class="opacity-0 scale-95 translate-y-2"
-                                enter-to-class="opacity-100 scale-100 translate-y-0"
-                                leave-from-class="opacity-100 scale-100 translate-y-0"
-                                leave-to-class="opacity-0 scale-95 translate-y-2">
-                                <div v-if="openDropdown === 'blog'"
-                                    class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                                    <router-link to="/blog" class="dropdown-item group" @click="openDropdown = null">
-                                        <i class="pi pi-bookmark mr-3"></i>
-                                        <span>Artículos</span>
-                                    </router-link>
-                                    <router-link to="/blog/actividad" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-rss mr-3"></i>
-                                        <span>Actividad Reciente</span>
-                                    </router-link>
-                                </div>
-                            </transition>
-                        </div>
-
-                        <div class="relative group" @mouseenter="openDropdown = 'agronomy'"
-                            @mouseleave="openDropdown = null">
-                            <button class="nav-link group">
-                                <i
-                                    class="pi pi-graduation-cap mr-2 text-lg transition-transform group-hover:scale-110"></i>
-                                <span class="font-semibold">Agronomía</span>
-                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
-                                    :class="{ 'rotate-180': openDropdown === 'agronomy' }"></i>
-                            </button>
-
-                            <transition enter-active-class="transition-all duration-200 ease-out"
-                                leave-active-class="transition-all duration-150 ease-in"
-                                enter-from-class="opacity-0 scale-95 translate-y-2"
-                                enter-to-class="opacity-100 scale-100 translate-y-0"
-                                leave-from-class="opacity-100 scale-100 translate-y-0"
-                                leave-to-class="opacity-0 scale-95 translate-y-2">
-                                <div v-if="openDropdown === 'agronomy'"
-                                    class="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                                    <router-link to="/agronomia/programas" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-list mr-3"></i>
-                                        <span>Programas Académicos</span>
-                                    </router-link>
-                                    <router-link to="/agronomia/profesores" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-users mr-3"></i>
-                                        <span>Nuestros Profesores</span>
-                                    </router-link>
-                                    <router-link to="/agronomia/news" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-megaphone mr-3"></i>
-                                        <span>AgroNews</span>
-                                    </router-link>
-                                    <router-link to="/agronomia/carrera" class="dropdown-item group"
-                                        @click="openDropdown = null">
-                                        <i class="pi pi-info-circle mr-3"></i>
-                                        <span>Información de Carrera</span>
-                                    </router-link>
-                                </div>
-                            </transition>
-                        </div>
-
+                        <!-- Información -->
                         <div class="relative group" @mouseenter="openDropdown = 'info'"
                             @mouseleave="openDropdown = null">
                             <button class="nav-link group">
@@ -167,6 +65,113 @@
                                 </div>
                             </transition>
                         </div>
+
+                        <!-- Tienda -->
+                        <div class="relative group" @mouseenter="openDropdown = 'shop'"
+                            @mouseleave="openDropdown = null">
+                            <button class="nav-link group">
+                                <i
+                                    class="pi pi-shopping-bag mr-2 text-lg transition-transform group-hover:scale-110"></i>
+                                <span class="font-semibold">Tienda</span>
+                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
+                                    :class="{ 'rotate-180': openDropdown === 'shop' }"></i>
+                            </button>
+
+                            <transition enter-active-class="transition-all duration-200 ease-out"
+                                leave-active-class="transition-all duration-150 ease-in"
+                                enter-from-class="opacity-0 scale-95 translate-y-2"
+                                enter-to-class="opacity-100 scale-100 translate-y-0"
+                                leave-from-class="opacity-100 scale-100 translate-y-0"
+                                leave-to-class="opacity-0 scale-95 translate-y-2">
+                                <div v-if="openDropdown === 'shop'"
+                                    class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                                    <router-link to="/tienda" class="dropdown-item group" @click="openDropdown = null">
+                                        <i class="pi pi-store mr-3"></i>
+                                        <span>Ver Tienda</span>
+                                    </router-link>
+                                    <router-link to="/carrito" class="dropdown-item group" @click="openDropdown = null">
+                                        <i class="pi pi-shopping-cart mr-3"></i>
+                                        <span>Mi Carrito</span>
+                                        <Badge v-if="cartItemCount > 0" :value="cartItemCount" severity="danger"
+                                            class="ml-auto" />
+                                    </router-link>
+                                </div>
+                            </transition>
+                        </div>
+
+                        <!-- Agronomía -->
+                        <div class="relative group" @mouseenter="openDropdown = 'agronomy'"
+                            @mouseleave="openDropdown = null">
+                            <button class="nav-link group">
+                                <i
+                                    class="pi pi-graduation-cap mr-2 text-lg transition-transform group-hover:scale-110"></i>
+                                <span class="font-semibold">Agronomía</span>
+                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
+                                    :class="{ 'rotate-180': openDropdown === 'agronomy' }"></i>
+                            </button>
+
+                            <transition enter-active-class="transition-all duration-200 ease-out"
+                                leave-active-class="transition-all duration-150 ease-in"
+                                enter-from-class="opacity-0 scale-95 translate-y-2"
+                                enter-to-class="opacity-100 scale-100 translate-y-0"
+                                leave-from-class="opacity-100 scale-100 translate-y-0"
+                                leave-to-class="opacity-0 scale-95 translate-y-2">
+                                <div v-if="openDropdown === 'agronomy'"
+                                    class="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                                    <router-link to="/agronomia/programas" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-list mr-3"></i>
+                                        <span>Programas Académicos</span>
+                                    </router-link>
+                                    <router-link to="/agronomia/profesores" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-users mr-3"></i>
+                                        <span>Nuestros Profesores</span>
+                                    </router-link>
+                                    <router-link to="/agronomia/news" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-megaphone mr-3"></i>
+                                        <span>AgroNews</span>
+                                    </router-link>
+                                    <router-link to="/agronomia/carrera" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-info-circle mr-3"></i>
+                                        <span>Información de Carrera</span>
+                                    </router-link>
+                                </div>
+                            </transition>
+                        </div>
+
+                        <!-- Blog -->
+                        <div class="relative group" @mouseenter="openDropdown = 'blog'"
+                            @mouseleave="openDropdown = null">
+                            <button class="nav-link group">
+                                <i class="pi pi-book mr-2 text-lg transition-transform group-hover:scale-110"></i>
+                                <span class="font-semibold">Blog</span>
+                                <i class="pi pi-chevron-down ml-2 text-xs transition-transform"
+                                    :class="{ 'rotate-180': openDropdown === 'blog' }"></i>
+                            </button>
+
+                            <transition enter-active-class="transition-all duration-200 ease-out"
+                                leave-active-class="transition-all duration-150 ease-in"
+                                enter-from-class="opacity-0 scale-95 translate-y-2"
+                                enter-to-class="opacity-100 scale-100 translate-y-0"
+                                leave-from-class="opacity-100 scale-100 translate-y-0"
+                                leave-to-class="opacity-0 scale-95 translate-y-2">
+                                <div v-if="openDropdown === 'blog'"
+                                    class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                                    <router-link to="/blog" class="dropdown-item group" @click="openDropdown = null">
+                                        <i class="pi pi-bookmark mr-3"></i>
+                                        <span>Artículos</span>
+                                    </router-link>
+                                    <router-link to="/blog/actividad" class="dropdown-item group"
+                                        @click="openDropdown = null">
+                                        <i class="pi pi-rss mr-3"></i>
+                                        <span>Actividad Reciente</span>
+                                    </router-link>
+                                </div>
+                            </transition>
+                        </div>
                     </nav>
 
                     <router-link to="/carrito"
@@ -208,34 +213,6 @@ const navItemsWithDropdowns = computed(() => {
     return [
         { label: 'Inicio', to: '/', icon: 'pi pi-home' },
         {
-            label: 'Tienda',
-            to: '/tienda',
-            icon: 'pi pi-shopping-bag',
-            children: [
-                { label: 'Ver Tienda', to: '/tienda', icon: 'pi pi-shopping-bag' },
-                { label: 'Mi Carrito', to: '/carrito', icon: 'pi pi-shopping-cart' },
-            ]
-        },
-        {
-            label: 'Blog',
-            to: '/blog',
-            icon: 'pi pi-book',
-            children: [
-                { label: 'Artículos', to: '/blog', icon: 'pi pi-bookmark' },
-                { label: 'Actividad Reciente', to: '/blog/actividad', icon: 'pi pi-rss' }
-            ]
-        },
-        {
-            label: 'Agronomía',
-            to: '/agronomia/programas',
-            icon: 'pi pi-graduation-cap',
-            children: [
-                { label: 'Programas Académicos', to: '/agronomia/programas', icon: 'pi pi-list' },
-                { label: 'Nuestros Profesores', to: '/agronomia/profesores', icon: 'pi pi-users' },
-                { label: 'Información de Carrera', to: '/agronomia/carrera', icon: 'pi pi-info-circle' },
-            ]
-        },
-        {
             label: 'Información',
             to: '/conocenos',
             icon: 'pi pi-info-circle',
@@ -246,6 +223,35 @@ const navItemsWithDropdowns = computed(() => {
                 { label: 'Privacidad', to: '/privacidad', icon: 'pi pi-shield' },
                 { label: 'Términos', to: '/terminos', icon: 'pi pi-file' }
             ]
+        },
+        {
+            label: 'Tienda',
+            to: '/tienda',
+            icon: 'pi pi-shopping-bag',
+            children: [
+                { label: 'Ver Tienda', to: '/tienda', icon: 'pi pi-store' },
+                { label: 'Mi Carrito', to: '/carrito', icon: 'pi pi-shopping-cart' }
+            ]
+        },
+        {
+            label: 'Agronomía',
+            to: '/agronomia/programas',
+            icon: 'pi pi-graduation-cap',
+            children: [
+                { label: 'Programas Académicos', to: '/agronomia/programas', icon: 'pi pi-list' },
+                { label: 'Nuestros Profesores', to: '/agronomia/profesores', icon: 'pi pi-users' },
+                { label: 'AgroNews', to: '/agronomia/news', icon: 'pi pi-megaphone' },
+                { label: 'Información de Carrera', to: '/agronomia/carrera', icon: 'pi pi-info-circle' },
+            ]
+        },
+        {
+            label: 'Blog',
+            to: '/blog',
+            icon: 'pi pi-book',
+            children: [
+                { label: 'Artículos', to: '/blog', icon: 'pi pi-bookmark' },
+                { label: 'Actividad Reciente', to: '/blog/actividad', icon: 'pi pi-rss' }
+            ]
         }
     ]
 })
@@ -255,7 +261,6 @@ const toggleMobileMenu = () => {
     openDropdown.value = null
 }
 
-// Cerrar menú mobile al cambiar ruta
 router.afterEach(() => {
     mobileMenuOpen.value = false
     openDropdown.value = null
