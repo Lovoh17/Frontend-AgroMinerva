@@ -39,7 +39,7 @@ export const defaultSeo = {
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/public/AGRO-MINERVA-VERTICAL-SIN-FONDO.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '../assets/images/AGRO-MINERVA-VERTICAL-SIN-FONDO.png' }
     ]
 }
 
