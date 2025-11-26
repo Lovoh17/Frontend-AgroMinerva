@@ -154,7 +154,7 @@
 <script>
 import { defineComponent } from 'vue';
 import Button from 'primevue/button';
-import logoDefault from '@/assets/images/';
+import logoDefault from '@/assets/images/AGRO-MINERVA-VERTICAL-SIN-FONDO.png';
 
 export default defineComponent({
     name: 'OrderShippingEmail',
